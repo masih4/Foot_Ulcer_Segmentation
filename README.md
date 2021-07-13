@@ -2,7 +2,7 @@
 Contains the code for Foot Ulcer Segmentation Challenge at MICCAI 2021
 
 
-## Directory architecture
+## Directory structure
 ```
 .
 ├── code
