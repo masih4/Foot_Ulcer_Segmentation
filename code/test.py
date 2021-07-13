@@ -33,7 +33,6 @@ from skimage.io import imsave, imread
 import segmentation_models as sm
 import pandas as pd
 import matplotlib.pyplot as plt
-from model import *
 from metric import *
 
 
