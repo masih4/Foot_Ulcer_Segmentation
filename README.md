@@ -1,5 +1,5 @@
 # Foot_Ulcer_Segmentation
-Contains the code for Foot Ulcer Segmentation Challenge at MICCAI 2021
+Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 2021
 
 
 ## Directory structure
