@@ -1,6 +1,9 @@
 # Foot_Ulcer_Segmentation
 Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 2021
 
+[![MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/shunk031/chainer-skin-lesion-detector/blob/master/LICENSE)
+![](https://img.shields.io/badge/keras-tensorflow-blue.svg)
+
 
 ## Directory structure
 ```
