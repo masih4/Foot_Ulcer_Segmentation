@@ -15,11 +15,11 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 │   ├── test.py (main run file)
 │   ├── gpu_setting.py
 │   ├── metric.py
-│   └── params_test.py (all configs shoud be set here)
+│   └── params_test.py (all configs should be set here)
 │
 ├── saved_models
-│   ├── linknet(linknet models should be downloaded from googledrive and placed in this folder)
-│   └── unet (unet models should be downloaded from googledrive and placed in this folder)
+│   ├── linknet(LinkNet models should be downloaded from Google drive and placed in this folder)
+│   └── unet (U-Net models should be downloaded from Google drive and placed in this folder)
 │
 ├── test images (place all test images here (size 512x512 pixels))
 │
@@ -30,11 +30,11 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 ```
 
 ## How to use
-1- download the saved modles from Google Drive: https://drive.google.com/drive/folders/1lprFVD--hzFLglXpe8di0CkqSXRK2DFO?usp=sharing
+1- download the saved models from Google Drive: https://drive.google.com/drive/folders/1lprFVD--hzFLglXpe8di0CkqSXRK2DFO?usp=sharing
 
 2- put the test images inside the `test_images` folder
 
-3- set up the Docker enviroment
+3- set up the Docker environment
 
 4- run the following command
 ```
