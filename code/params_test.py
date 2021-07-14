@@ -2,7 +2,7 @@ opts = {}
 opts['resource'] = 'cpu' # 'gpu'
 opts['tf_version'] = 1.14
 opts['gpu_num'] = '0'
-opts['imageType_test'] = '.png'
+opts['imageType_test'] = '.jpg'
 opts['number_of_channel'] = 3
 opts['treshold'] = 0.5
 ## paths
