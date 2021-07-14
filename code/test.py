@@ -16,8 +16,9 @@ import sys
 sys.stdout.flush() # resolving tqdm problem
 #########################################################################
 ## gpu configuration
-from gpu_setting import gpu_setting
-gpu_setting(opts)
+if opts['resource'] == 'gpu':
+    from gpu_setting import gpu_setting
+    gpu_setting(opts)
 #########################################################################
 ## importing all required libraraies
 import numpy as np
