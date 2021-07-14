@@ -35,6 +35,11 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 2- put the test images inside the `test_images` folder
 
 3- set up the Docker environment
+```
+docker build -f Dockerfile -t wound_seg .
+docker run -v /home/masih/Desktop/wound_docker/results/:/src/results/ -ti wound_seg /bin/bash
+```
+note: you need to chenge `/home/masih/Desktop/wound_docker/results/` to the path that you want to save the results on your local system
 
 4- run the following commands inside the container:
 ```
