@@ -5,7 +5,7 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 ![](https://img.shields.io/badge/keras-tensorflow-blue.svg)
 
 ## Method
-
+![Project Image](https://github.com/masih4/Foot_Ulcer_Segmentation/blob/main/git_image/method.png)
 
 
 ## Directory structure
