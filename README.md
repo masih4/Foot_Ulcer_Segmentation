@@ -36,9 +36,10 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 
 3- set up the Docker environment
 
-4- run the following command
+4- run the following commands inside the container:
 ```
-$ python test.py 
+$ cd src/code
+$ python3 test.py 
 ```
 5- final results will be saved inside `results/final` folder
 
