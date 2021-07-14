@@ -36,8 +36,8 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 
 3- set up the Docker environment
 ```
-docker build -f Dockerfile -t FUSeg2021_AmirrezaMahbod_MedicalUniversityofVienna .
-docker run -v /home/masih/Desktop/wound_docker/results/:/src/results/ -ti FUSeg2021_AmirrezaMahbod_MedicalUniversityofVienna /bin/bash
+docker build -f Dockerfile -t fuseg2021_amirrezamahbod_medicaluniversityofvienna .
+docker run -v /home/masih/Desktop/wound_docker/results/:/src/results/ -ti fuseg2021_amirrezamahbod_medicaluniversityofvienna /bin/bash
 ```
 note: you need to chenge `/home/masih/Desktop/wound_docker/results/` to the path that you want to save the results on your local system
 
@@ -69,6 +69,7 @@ Amirreza Mahbod (Medical University of Vienna) (contact: amirreza.mahbod@meduniw
 Rupert Ecker (TissueGnostics GmbH)
 
 Isabella Ellinger (Medical University of Vienna)
+
 
 
 ## Reference (dataset and benchmark)
