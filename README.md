@@ -4,6 +4,9 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 [![MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/shunk031/chainer-skin-lesion-detector/blob/master/LICENSE)
 ![](https://img.shields.io/badge/keras-tensorflow-blue.svg)
 
+## Method
+
+
 
 ## Directory structure
 ```
@@ -53,9 +56,11 @@ Segmentation results on the Kumar dataset:
 | MobileNetV2 + pp [1]              |         -            |   90.47                 |   -                        |
 | EfficientNet2 U-Net (this work)   |         84.09        |   91.90                 |  85.01                     |
 | EfficientNet1 LinkNet (this work) |         83.93        |   92.09                 |  85.35                     |
-| Ensemble U-Net LinkNet (this work)|         84.42        |   92.11                 |  85.51                     |
+| Ensemble U-Net LinkNet (this work)|         84.42        |   92.07                 |  85.51                     |
 
 
 
 ## Reference (dataset and benchmark)
+[1] Thomas, S. Stock pictures of wounds. Medetec Wound Database (2020). http://www.medetec.co.uk/files/medetec-image-databases.html
+
 [2] Wang, C., Anisuzzaman, D.M., Williamson, V. et al. Fully automatic wound segmentation with deep convolutional neural networks. Sci Rep 10, 21897 (2020). https://doi.org/10.1038/s41598-020-78799-w
