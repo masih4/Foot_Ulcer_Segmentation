@@ -39,5 +39,23 @@ $ python test.py
 ```
 5- final results will be saved inside `results/final` folder
 
+## Results
+To derive the results, we used the Medetec foot ulcer dataset [1] for pre-training. Then we used the training set of the MICCAI 2021 Foot Ulcer Segmentation Challenge dataset [2] (810 images) as the training and validation set. The reported results in the following table are based on the test set of the Foot Ulcer Segmentation dataset (200 images).
+
+Segmentation results on the Kumar dataset:
+| Model                             | Image base Dice (%)  | Dataset based Dice (%)  | Dataset based IOU (%)      |
+| --------------------------------  |:--------------------:|:-----------------------:|:--------------------------:|
+| VGG16  [1]                        |         -            |   81.03                 |   -                        |
+| SegNet [1]                        |         -            |   85.05                 |   -                        |
+| U-Net [1]                         |         -            |   90.15                 |   -                        |
+| Mask-RCNN  [1]                    |         -            |   90.20                 |   -                        |
+| MobileNetV2 [1]                   |         -            |   90.30                 |   -                        |
+| MobileNetV2 + pp [1]              |         -            |   90.47                 |   -                        |
+| EfficientNet2 U-Net (this work)   |         84.09        |   91.90                 |  85.01                     |
+| EfficientNet1 LinkNet (this work) |         83.93        |   92.09                 |  85.35                     |
+| Ensemble U-Net LinkNet (this work)|         84.42        |   92.11                 |  85.51                     |
+
+
+
 ## Reference (dataset and benchmark)
-Wang, C., Anisuzzaman, D.M., Williamson, V. et al. Fully automatic wound segmentation with deep convolutional neural networks. Sci Rep 10, 21897 (2020). https://doi.org/10.1038/s41598-020-78799-w
+[2] Wang, C., Anisuzzaman, D.M., Williamson, V. et al. Fully automatic wound segmentation with deep convolutional neural networks. Sci Rep 10, 21897 (2020). https://doi.org/10.1038/s41598-020-78799-w
