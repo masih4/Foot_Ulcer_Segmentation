@@ -63,6 +63,12 @@ To derive the results in the following table, we used the Medetec foot ulcer dat
 | EfficientNet1 LinkNet (this work) |         83.93        |   92.09                 |  85.35                     |
 | Ensemble U-Net LinkNet (this work)|         84.42        |   92.07                 |  85.51                     |
 
+## Team members
+Amirreza Mahbod (Medical University of Vienna) (contact: amirreza.mahbod@meduniwien.ac.at)
+
+Rupert Ecker (TissueGnostics GmbH)
+
+Isabella Ellinger (Medical University of Vienna)
 
 
 ## Reference (dataset and benchmark)
