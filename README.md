@@ -51,14 +51,14 @@ $ python3 test.py
 ## Results
 To derive the results in the following table, we used the Medetec foot ulcer dataset [1] for pre-training. Then we used the training set of the MICCAI 2021 Foot Ulcer Segmentation Challenge dataset [2] (810 images) as the training set. The reported results in the following table are based on the validation set of the Foot Ulcer Segmentation dataset (200 images). For the challenge submssion, we used the entire 1010 images of the train and validation set to train our models. 
 
-| Model                             | Image base Dice (%)  | Dataset based Dice (%)  | Dataset based IOU (%)      |
+| Model                             | Image-based Dice (%)  | Dataset-based Dice (%)  | Dataset-based IOU (%)      |
 | --------------------------------  |:--------------------:|:-----------------------:|:--------------------------:|
-| VGG16  [1]                        |         -            |   81.03                 |   -                        |
-| SegNet [1]                        |         -            |   85.05                 |   -                        |
-| U-Net [1]                         |         -            |   90.15                 |   -                        |
-| Mask-RCNN  [1]                    |         -            |   90.20                 |   -                        |
-| MobileNetV2 [1]                   |         -            |   90.30                 |   -                        |
-| MobileNetV2 + pp [1]              |         -            |   90.47                 |   -                        |
+| VGG16  [2]                        |         -            |   81.03                 |   -                        |
+| SegNet [2]                        |         -            |   85.05                 |   -                        |
+| U-Net [2]                         |         -            |   90.15                 |   -                        |
+| Mask-RCNN  [2]                    |         -            |   90.20                 |   -                        |
+| MobileNetV2 [2]                   |         -            |   90.30                 |   -                        |
+| MobileNetV2 + pp [2]              |         -            |   90.47                 |   -                        |
 | EfficientNet2 U-Net (this work)   |         84.09        |   91.90                 |  85.01                     |
 | EfficientNet1 LinkNet (this work) |         83.93        |   92.09                 |  85.35                     |
 | Ensemble U-Net LinkNet (this work)|         84.42        |   92.07                 |  85.51                     |
