@@ -30,23 +30,31 @@ Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 202
 ```
 
 ## How to use
-1- download the saved models from Google Drive: https://drive.google.com/drive/folders/1lprFVD--hzFLglXpe8di0CkqSXRK2DFO?usp=sharing
+1- download the saved models from Google Drive: https://drive.google.com/drive/folders/1lprFVD--hzFLglXpe8di0CkqSXRK2DFO?usp=sharing and place them in `saved_models` folder
 
 2- put the test images inside the `test_images` folder (already included 200 test images from: https://github.com/uwm-bigdata/wound-segmentation/tree/master/data/Foot%20Ulcer%20Segmentation%20Challenge/test/images but you could add/remove images)
 
-3- set up the Docker environment
+3- build the Docker environment
 ```
 docker build -f Dockerfile -t fuseg2021_amirreza_mahbod_medicaluniversityofvienna .
+```
+or download the built image from:https://drive.google.com/file/d/1K4j9gXKzmLfLAe-LjAhRLIi1Vz-_ghkp/view?usp=sharing
+and extract the `.tar` file.
+```
+docker load --input fuseg2021_amirreza_mahbod_medicaluniversityofvienna.tar
+```
+4- run the container
+```
 docker run --gpus all -v /home/masih/Desktop/wound_docker/results/:/src/results/ -ti fuseg2021_amirreza_mahbod_medicaluniversityofvienna /bin/bash
 ```
 note: you need to chenge `/home/masih/Desktop/wound_docker/results/` to the path that you want to save the results on your local system
 
-4- run the following commands inside the container:
+5- run the following commands inside the container:
 ```
 $ cd src/code
 $ python3 test.py 
 ```
-5- final results will be saved inside `results/final` folder
+6- final results will be saved inside `results/final` folder
 
 ## Results
 To derive the results in the following table, we used the Medetec foot ulcer dataset [1] for pre-training. Then we used the training set of the MICCAI 2021 Foot Ulcer Segmentation Challenge dataset [2] (810 images) as the training set. The reported results in the following table are based on the validation set of the Foot Ulcer Segmentation dataset (200 images). For the challenge submssion, we used the entire 1010 images of the train and validation set to train our models. 
