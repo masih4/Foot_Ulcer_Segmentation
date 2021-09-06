@@ -1,5 +1,5 @@
 opts = {}
-opts['resource'] = 'cpu' # 'gpu'
+opts['resource'] = 'gpu'
 opts['tf_version'] = 1.14
 opts['gpu_num'] = '0'
 opts['imageType_test'] = '.jpg'

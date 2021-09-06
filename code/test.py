@@ -24,17 +24,14 @@ if opts['resource'] == 'gpu':
 import numpy as np
 import cv2
 import os
-import random
-import time
 from glob import glob
 from tqdm import tqdm
 from scipy.ndimage.morphology import binary_fill_holes
 from skimage.morphology import remove_small_objects
 from skimage.io import imsave, imread
 import segmentation_models as sm
-import pandas as pd
 import matplotlib.pyplot as plt
-from metric import *
+from TTA import TTA, TTA_reverse
 
 
 def get_id_from_file_path(file_path, indicator):
@@ -100,57 +97,16 @@ for K in range(opts['k_fold']):
         if opts['use_pretrained_flag'] == 1:
             x_padded = preprocess_input(x_padded)
         x_padded_resized = cv2.resize(x_padded, (resize_target, resize_target))
-        x_padded_resized_unpretrain = cv2.resize(x_padded_unpretrain, (resize_target, resize_target))
-        ################################################## morphological TTA
-        img_rotate_90_clockwise = cv2.rotate(x_padded_resized, cv2.ROTATE_90_CLOCKWISE)
-        img_rotate_90_counterclockwise = cv2.rotate(x_padded_resized, cv2.ROTATE_90_COUNTERCLOCKWISE)
-        img_rotate_180 = cv2.rotate(x_padded_resized, cv2.ROTATE_180)
-        img_flip_lr_0 = cv2.flip(x_padded_resized, 1)
-        img_flip_lr_90 = cv2.flip(img_rotate_90_clockwise, 1)
-        img_flip_lr_180 = cv2.flip(img_rotate_180, 1)
-        img_flip_lr_270 = cv2.flip(img_rotate_90_counterclockwise, 1)
         ##################################################
-        x_padded_resized_base = np.expand_dims(x_padded_resized, axis=0)
-        ##################################################
-        img_rotate_90_clockwise = np.expand_dims(img_rotate_90_clockwise, axis=0)
-        img_rotate_90_counterclockwise = np.expand_dims(img_rotate_90_counterclockwise, axis=0)
-        img_rotate_180 = np.expand_dims(img_rotate_180, axis=0)
-        img_flip_lr_0 = np.expand_dims(img_flip_lr_0, axis=0)
-        img_flip_lr_90 = np.expand_dims(img_flip_lr_90, axis=0)
-        img_flip_lr_180 = np.expand_dims(img_flip_lr_180, axis=0)
-        img_flip_lr_270 = np.expand_dims(img_flip_lr_270, axis=0)
-
-        pred_test_base1 = model_raw.predict(x_padded_resized_base, verbose=0, batch_size=1)
-        pred_test_base2 = model_raw.predict(img_rotate_90_clockwise, verbose=0, batch_size=1)
-        pred_test_base3 = model_raw.predict(img_rotate_90_counterclockwise, verbose=0, batch_size=1)
-        pred_test_base4 = model_raw.predict(img_rotate_180, verbose=0, batch_size=1)
-        pred_test_base5 = model_raw.predict(img_flip_lr_0, verbose=0, batch_size=1)
-        pred_test_base6 = model_raw.predict(img_flip_lr_90, verbose=0, batch_size=1)
-        pred_test_base7 = model_raw.predict(img_flip_lr_180, verbose=0, batch_size=1)
-        pred_test_base8 = model_raw.predict(img_flip_lr_270, verbose=0, batch_size=1)
-
-        pred_test_base1 = np.squeeze(pred_test_base1)
-        pred_test_base2 = np.squeeze(pred_test_base2)
-        pred_test_base3 = np.squeeze(pred_test_base3)
-        pred_test_base4 = np.squeeze(pred_test_base4)
-        pred_test_base5 = np.squeeze(pred_test_base5)
-        pred_test_base6 = np.squeeze(pred_test_base6)
-        pred_test_base7 = np.squeeze(pred_test_base7)
-        pred_test_base8 = np.squeeze(pred_test_base8)
-
-        pred_test_base2 = cv2.rotate(pred_test_base2, cv2.ROTATE_90_COUNTERCLOCKWISE)
-        pred_test_base3 = cv2.rotate(pred_test_base3, cv2.ROTATE_90_CLOCKWISE)
-        pred_test_base4 = cv2.rotate(pred_test_base4, cv2.ROTATE_180)
-        pred_test_base5 = cv2.flip(pred_test_base5, 1)
-        pred_test_base6 = cv2.flip(pred_test_base6, 1)
-        pred_test_base6 = cv2.rotate(pred_test_base6, cv2.ROTATE_90_COUNTERCLOCKWISE)
-        pred_test_base7 = cv2.flip(pred_test_base7, 1)
-        pred_test_base7 = cv2.rotate(pred_test_base7, cv2.ROTATE_180)
-        pred_test_base8 = cv2.flip(pred_test_base8, 1)
-        pred_test_base8 = cv2.rotate(pred_test_base8, cv2.ROTATE_90_CLOCKWISE)
-
-        pred_test_tot = []
-        pred_test_tot = (pred_test_base1 + pred_test_base2+ pred_test_base3+ pred_test_base4+ pred_test_base5+ pred_test_base6+ pred_test_base7+ pred_test_base8)/8
+        #perfroming TTA
+        augmented_images = TTA(x_padded_resized)
+        #prediction on augmented images
+        pred_test_new = model_raw.predict(augmented_images, verbose=0, batch_size=4)
+        pred_test_new_squeeze_1 = np.squeeze(pred_test_new)
+        # reverse augmentation
+        pred_test_new_squeeze_1 = TTA_reverse(pred_test_new_squeeze_1)
+        #ensemble of TTA predcitions
+        pred_test_tot = np.mean(pred_test_new_squeeze_1, axis= 0)
 
         preds_test_resize = cv2.resize(pred_test_tot, (x_padded.shape[1], x_padded.shape[0]))
         preds_test_orgSize = preds_test_resize[0:x.shape[0], 0:x.shape[1]]
@@ -159,7 +115,6 @@ for K in range(opts['k_fold']):
         np.save(opts['results_save_path'] + 'temp/linknet/fold{}/{}'.format(K+1,get_id_from_file_path(test_files[i], opts['imageType_test'])), preds_test_orgSize)
         preds_test_orgSize[preds_test_orgSize > 1] = 1
         imsave(opts['results_save_path'] + 'temp/linknet/fold{}/{}.png'.format(K+1,get_id_from_file_path(test_files[i], opts['imageType_test'])), np.uint8(preds_test_orgSize*255))
-
 
         del pred_test_tot
 
@@ -207,57 +162,16 @@ for K in range(opts['k_fold']):
         if opts['use_pretrained_flag'] == 1:
             x_padded = preprocess_input(x_padded)
         x_padded_resized = cv2.resize(x_padded, (resize_target, resize_target))
-        x_padded_resized_unpretrain = cv2.resize(x_padded_unpretrain, (resize_target, resize_target))
-        ################################################## morphological TTA
-        img_rotate_90_clockwise = cv2.rotate(x_padded_resized, cv2.ROTATE_90_CLOCKWISE)
-        img_rotate_90_counterclockwise = cv2.rotate(x_padded_resized, cv2.ROTATE_90_COUNTERCLOCKWISE)
-        img_rotate_180 = cv2.rotate(x_padded_resized, cv2.ROTATE_180)
-        img_flip_lr_0 = cv2.flip(x_padded_resized, 1)
-        img_flip_lr_90 = cv2.flip(img_rotate_90_clockwise, 1)
-        img_flip_lr_180 = cv2.flip(img_rotate_180, 1)
-        img_flip_lr_270 = cv2.flip(img_rotate_90_counterclockwise, 1)
         ##################################################
-        x_padded_resized_base = np.expand_dims(x_padded_resized, axis=0)
-        ##################################################
-        img_rotate_90_clockwise = np.expand_dims(img_rotate_90_clockwise, axis=0)
-        img_rotate_90_counterclockwise = np.expand_dims(img_rotate_90_counterclockwise, axis=0)
-        img_rotate_180 = np.expand_dims(img_rotate_180, axis=0)
-        img_flip_lr_0 = np.expand_dims(img_flip_lr_0, axis=0)
-        img_flip_lr_90 = np.expand_dims(img_flip_lr_90, axis=0)
-        img_flip_lr_180 = np.expand_dims(img_flip_lr_180, axis=0)
-        img_flip_lr_270 = np.expand_dims(img_flip_lr_270, axis=0)
-
-        pred_test_base1 = model_raw.predict(x_padded_resized_base, verbose=0, batch_size=1)
-        pred_test_base2 = model_raw.predict(img_rotate_90_clockwise, verbose=0, batch_size=1)
-        pred_test_base3 = model_raw.predict(img_rotate_90_counterclockwise, verbose=0, batch_size=1)
-        pred_test_base4 = model_raw.predict(img_rotate_180, verbose=0, batch_size=1)
-        pred_test_base5 = model_raw.predict(img_flip_lr_0, verbose=0, batch_size=1)
-        pred_test_base6 = model_raw.predict(img_flip_lr_90, verbose=0, batch_size=1)
-        pred_test_base7 = model_raw.predict(img_flip_lr_180, verbose=0, batch_size=1)
-        pred_test_base8 = model_raw.predict(img_flip_lr_270, verbose=0, batch_size=1)
-
-        pred_test_base1 = np.squeeze(pred_test_base1)
-        pred_test_base2 = np.squeeze(pred_test_base2)
-        pred_test_base3 = np.squeeze(pred_test_base3)
-        pred_test_base4 = np.squeeze(pred_test_base4)
-        pred_test_base5 = np.squeeze(pred_test_base5)
-        pred_test_base6 = np.squeeze(pred_test_base6)
-        pred_test_base7 = np.squeeze(pred_test_base7)
-        pred_test_base8 = np.squeeze(pred_test_base8)
-
-        pred_test_base2 = cv2.rotate(pred_test_base2, cv2.ROTATE_90_COUNTERCLOCKWISE)
-        pred_test_base3 = cv2.rotate(pred_test_base3, cv2.ROTATE_90_CLOCKWISE)
-        pred_test_base4 = cv2.rotate(pred_test_base4, cv2.ROTATE_180)
-        pred_test_base5 = cv2.flip(pred_test_base5, 1)
-        pred_test_base6 = cv2.flip(pred_test_base6, 1)
-        pred_test_base6 = cv2.rotate(pred_test_base6, cv2.ROTATE_90_COUNTERCLOCKWISE)
-        pred_test_base7 = cv2.flip(pred_test_base7, 1)
-        pred_test_base7 = cv2.rotate(pred_test_base7, cv2.ROTATE_180)
-        pred_test_base8 = cv2.flip(pred_test_base8, 1)
-        pred_test_base8 = cv2.rotate(pred_test_base8, cv2.ROTATE_90_CLOCKWISE)
-
-        pred_test_tot = []
-        pred_test_tot = (pred_test_base1 + pred_test_base2+ pred_test_base3+ pred_test_base4+ pred_test_base5+ pred_test_base6+ pred_test_base7+ pred_test_base8)/8
+        #perfroming TTA
+        augmented_images = TTA(x_padded_resized)
+        #prediction on augmented images
+        pred_test_new = model_raw.predict(augmented_images, verbose=0, batch_size=4)
+        pred_test_new_squeeze_1 = np.squeeze(pred_test_new)
+        # reverse augmentation
+        pred_test_new_squeeze_1 = TTA_reverse(pred_test_new_squeeze_1)
+        #ensemble of TTA predcitions
+        pred_test_tot = np.mean(pred_test_new_squeeze_1, axis= 0)
 
         preds_test_resize = cv2.resize(pred_test_tot, (x_padded.shape[1], x_padded.shape[0]))
         preds_test_orgSize = preds_test_resize[0:x.shape[0], 0:x.shape[1]]
