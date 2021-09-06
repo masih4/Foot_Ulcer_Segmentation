@@ -1,8 +1,23 @@
-# Foot_Ulcer_Segmentation
-Contains the prediction code for Foot Ulcer Segmentation Challenge at MICCAI 2021
-
 [![MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/shunk031/chainer-skin-lesion-detector/blob/master/LICENSE)
 ![](https://img.shields.io/badge/keras-tensorflow-blue.svg)
+
+# Foot_Ulcer_Segmentation
+Contains the prediction codes for our submission to the Foot Ulcer Segmentation Challenge at MICCAI 2021 that placed us in the **1st rank** in the challenge legacy leaderboard.
+
+# Citation
+If you find the contents of this repository useful or use the provided codes, please cite our arXiv preprint.
+https://arxiv.org/abs/2109.01408
+
+BibTex entry:
+```
+@article{UlcerSegMahod21,
+author = "Mahbod, Amirreza and Ecker, Rupert and Ellinger, Isabella",
+journal = "arXiv preprint arXiv:2109.01408",
+title = "Automatic Foot Ulcer segmentation Using an Ensemble of Convolutional Neural Networks",
+year = "2021"
+}
+```
+
 
 ## Method
 ![Project Image](https://github.com/masih4/Foot_Ulcer_Segmentation/blob/main/git_image/method.png)
@@ -59,24 +74,22 @@ $ python3 test.py
 ## Results
 To derive the results in the following table, we used the Medetec foot ulcer dataset [1] for pre-training. Then we used the training set of the MICCAI 2021 Foot Ulcer Segmentation Challenge dataset [2] (810 images) as the training set. The reported results in the following table are based on the validation set of the Foot Ulcer Segmentation dataset (200 images). For the challenge submssion, we used the entire 1010 images of the train and validation set to train our models. 
 
-| Model                             | Image-based Dice (%)  | Dataset-based Dice (%)  | Dataset-based IOU (%)      |
-| --------------------------------  |:--------------------:|:-----------------------:|:--------------------------:|
-| VGG16  [2]                        |         -            |   81.03                 |   -                        |
-| SegNet [2]                        |         -            |   85.05                 |   -                        |
-| U-Net [2]                         |         -            |   90.15                 |   -                        |
-| Mask-RCNN  [2]                    |         -            |   90.20                 |   -                        |
-| MobileNetV2 [2]                   |         -            |   90.30                 |   -                        |
-| MobileNetV2 + pp [2]              |         -            |   90.47                 |   -                        |
-| EfficientNet2 U-Net (this work)   |         84.09        |   91.90                 |  85.01                     |
-| EfficientNet1 LinkNet (this work) |         83.93        |   92.09                 |  85.35                     |
-| Ensemble U-Net LinkNet (this work)|         84.42        |   92.07                 |  85.51                     |
+| Model                             | Image-based Dice (%) | Precision (%)           | Recall (%)              | Dataset-based IOU (%)      | Dataset-based Dice (%)     |
+| --------------------------------  |:--------------------:|:-----------------------:|:-----------------------:|:--------------------------:|:--------------------------:|
+| VGG16  [2]                        |         -            |       83.91             |   78.35                 |    -                       | 81.03                      |
+| SegNet [2]                        |         -            |       83.66             |   86.49                 |    -                       | 85.05                      |
+| U-Net [2]                         |         -            |       89.04             |   91.29                 |    -                       | 90.15                      |
+| Mask-RCNN  [2]                    |         -            |       94.30             |   86.40                 |    -                       | 90.20                      |
+| MobileNetV2 [2]                   |         -            |       90.86             |   89.76                 |    -                       | 90.30                      |
+| MobileNetV2 + pp [2]              |         -            |       91.01             |   89.97                 |    -                       | 90.47                      |
+| EfficientNet1 LinkNet (this work) |         83.93        |       92.88             |   91.33                 |    85.35                   | 92.09                      |
+| EfficientNet2 U-Net (this work)   |         84.09        |       92.23             |   91.57                 |    85.01                   | 91.90                      |
+| Ensemble U-Net LinkNet (this work)|         84.42        |       92.68             |   91.80                 |    85.51                   | 92.07                      |
 
-## Team members
-Amirreza Mahbod (Medical University of Vienna) (contact: amirreza.mahbod@meduniwien.ac.at)
+## Contact
+Amirreza Mahbod (Medical University of Vienna) 
 
-Rupert Ecker (TissueGnostics GmbH)
-
-Isabella Ellinger (Medical University of Vienna)
+Email: amirreza.mahbod@meduniwien.ac.at
 
 
 
