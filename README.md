@@ -1,7 +1,7 @@
 [![MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/shunk031/chainer-skin-lesion-detector/blob/master/LICENSE)
 ![](https://img.shields.io/badge/keras-tensorflow-blue.svg)
 
-# Foot_Ulcer_Segmentation
+# Automatic Foot Ulcer segmentation Using an Ensemble of Convolutional Neural Networks
 Contains the prediction codes for our submission to the Foot Ulcer Segmentation Challenge at MICCAI 2021 that placed us in the **1st rank** in the challenge legacy leaderboard.
 
 # Citation
