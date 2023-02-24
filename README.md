@@ -5,19 +5,24 @@
 Contains the prediction codes for our submission to the Foot Ulcer Segmentation Challenge at MICCAI 2021 that placed us in the **1st rank** in the challenge legacy leaderboard.
 
 # Citation
-If you find the contents of this repository useful or use the provided codes, please cite our arXiv preprint.
-https://arxiv.org/abs/2109.01408
+If you find the contents of this repository useful or use the provided codes, please use the following citation:
 
 BibTex entry:
 ```
-@article{UlcerSegMahod21,
-author = "Mahbod, Amirreza and Ecker, Rupert and Ellinger, Isabella",
-journal = "arXiv preprint arXiv:2109.01408",
-title = "Automatic Foot Ulcer segmentation Using an Ensemble of Convolutional Neural Networks",
-year = "2021"
-}
+@INPROCEEDINGS{9956253,
+  author={Mahbod, Amirreza and Schaefer, Gerald and Ecker, Rupert and Ellinger, Isabella},
+  booktitle={2022 26th International Conference on Pattern Recognition (ICPR)}, 
+  title={Automatic Foot Ulcer Segmentation Using an Ensemble of Convolutional Neural Networks}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={4358-4364},
+  doi={10.1109/ICPR56361.2022.9956253}}
 ```
 
+Paper link: https://ieeexplore.ieee.org/abstract/document/9956253
+
+Preprint link: https://arxiv.org/abs/2109.01408
 
 ## Method
 ![Project Image](https://github.com/masih4/Foot_Ulcer_Segmentation/blob/main/git_image/method.png)
